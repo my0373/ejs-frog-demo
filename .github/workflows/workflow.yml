@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: 'dro-oci-dev-local'
+      DOCKER_REPO: 'idir-oci-dev-local'
       IMAGE_NAME: 'ejs-demo:${{ github.run_number }}'
     permissions:
       id-token: write
@@ -31,7 +31,6 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         env:
           JF_URL: https://${{ vars.JF_HOST }}/
-          JF_PROJECT: ${{ vars.JF_PROJECT_KEY }}
         with:
             oidc-provider-name: jfrog-github
       - name: NPM Audit 
@@ -39,7 +38,6 @@ jobs:
           JFROG_CLI_BUILD_NAME: 'gh-ejs-demo'
           JF_URL: https://${{ vars.JF_HOST }}/
           JF_HOST: ${{ vars.JF_HOST }}
-          JF_PROJECT: ${{ vars.JF_PROJECT_KEY }}
         run: |
           jf rt bce ${{ env.JFROG_CLI_BUILD_NAME }} $GITHUB_RUN_NUMBER 
           jf rt bag ${{ env.JFROG_CLI_BUILD_NAME }} $GITHUB_RUN_NUMBER
@@ -73,7 +71,6 @@ jobs:
         env:
           JFROG_CLI_BUILD_NAME: 'gh-ejs-demo'
           JF_URL: https://${{ vars.JF_HOST }}/
-          JF_PROJECT: ${{ vars.JF_PROJECT_KEY }}
         run: |
           echo "${{ vars.JF_HOST }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}" > metadata.json
           jf rt build-docker-create ${{ env.DOCKER_REPO }} --image-file metadata.json --build-name $JFROG_CLI_BUILD_NAME --build-number $GITHUB_RUN_NUMBER
@@ -90,7 +87,6 @@ jobs:
         env:
           JFROG_CLI_BUILD_NAME: 'gh-ejs-demo'
           JF_URL: https://${{ vars.JF_HOST }}/
-          JF_PROJECT: ${{ vars.JF_PROJECT_KEY }}
         run: |
            jf rt bp $JFROG_CLI_BUILD_NAME $GITHUB_RUN_NUMBER
            jf rt bs $JFROG_CLI_BUILD_NAME $GITHUB_RUN_NUMBER
