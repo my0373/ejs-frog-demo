@@ -44,6 +44,7 @@ jobs:
           jf npmc --repo-resolve dro-npm-unsecure-remote
           jf npm i --omit dev --build-name=${{ env.JFROG_CLI_BUILD_NAME }} --build-number=$GITHUB_RUN_NUMBER
           jf audit --npm --fail=false
+          echo ${{ steps.setup-cli.outputs.oidc-user }}
       
       - name: Authenticate Docker
         uses: docker/login-action@v3
