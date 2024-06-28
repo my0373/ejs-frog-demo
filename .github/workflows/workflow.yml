@@ -33,7 +33,7 @@ jobs:
         env:
           JF_URL: https://${{ vars.JF_HOST }}/
         with:
-            oidc-provider-name: jfrog-github
+            oidc-provider-name: github
       - name: NPM Audit 
         env:
           JFROG_CLI_BUILD_NAME: 'gh-ejs-demo'
