@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: 'idir-oci-dev-local'
+      DOCKER_REPO: 'mry-dev-docker-local'
       IMAGE_NAME: 'ejs-demo:${{ github.run_number }}'
     permissions:
       id-token: write
