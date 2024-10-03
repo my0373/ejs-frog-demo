@@ -54,3 +54,5 @@ open a terminal and run
 `nc -lv 1337`
 
 Then use the link in the application to open the web shell.
+Adding some text to trigger an update
+
